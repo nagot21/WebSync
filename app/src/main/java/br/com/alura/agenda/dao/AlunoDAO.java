@@ -174,8 +174,12 @@ public class AlunoDAO extends SQLiteOpenHelper {
         for (Aluno aluno : alunos) {
 
             if (exite(aluno)) {
-                altera(aluno);
-            } else {
+                if (aluno.estaDesativado()) {
+                    deleta(aluno);
+                } else {
+                    altera(aluno);
+                }
+            } else if (!aluno.estaDesativado()){
                 insere(aluno);
             }
         }
